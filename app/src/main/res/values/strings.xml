@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ListBSDialogFragmentHelperProject</string>
+    <string name="default_list">默认列表对话框</string>
+    <string name="custom_list">自定义列表对话框</string>
+</resources>
