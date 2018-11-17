@@ -379,4 +379,4 @@ private Toast mToast;
     }
 ```
 ## 总结
-上述功能基本实现了各种底部列表对话框所需要的功能，更具体的代码信息请到GitHub或码云上查阅，GitHub地址https://github.com/MingYueChunQiu/ListBSDialogFragmentHelper.git，欢迎大家审阅，如果有什么更好的建议欢迎反馈，如果觉得还可以帮忙GitHub点个star，谢谢！
+上述功能基本实现了各种底部列表对话框所需要的功能，更具体的代码信息请到GitHub或码云上查阅，GitHub地址https://github.com/MingYueChunQiu/ListBSDialogFragmentHelper.git， 欢迎大家审阅，如果有什么更好的建议欢迎反馈，如果觉得还可以帮忙GitHub点个star，谢谢！
