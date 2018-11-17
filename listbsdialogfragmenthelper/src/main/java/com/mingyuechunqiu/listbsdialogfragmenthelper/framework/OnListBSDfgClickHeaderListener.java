@@ -14,10 +14,10 @@ import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.bottomSheetDialogFragmen
  *     version: 1.0
  * </pre>
  */
-public interface OnListBSDfgClickTextListener {
+public interface OnListBSDfgClickHeaderListener {
 
     /**
-     * 当点击取消文本时回调
+     * 当点击取消view时回调
      *
      * @param fragment 对话框
      * @param itemBean 选中的列表item数据
@@ -25,7 +25,7 @@ public interface OnListBSDfgClickTextListener {
     void onClickCancel(@NonNull ListBSDialogFragment fragment, BSDialogFgListItemBean itemBean);
 
     /**
-     * 当点击标题文本时回调
+     * 当点击标题view时回调
      *
      * @param fragment 对话框
      * @param itemBean 选中的列表item数据
@@ -33,7 +33,7 @@ public interface OnListBSDfgClickTextListener {
     void onClickTitle(@NonNull ListBSDialogFragment fragment, BSDialogFgListItemBean itemBean);
 
     /**
-     * 当点击确认文本时回调
+     * 当点击确认view时回调
      *
      * @param fragment 对话框
      * @param itemBean 选中的列表item数据
@@ -41,7 +41,7 @@ public interface OnListBSDfgClickTextListener {
     void onClickConfirm(@NonNull ListBSDialogFragment fragment, BSDialogFgListItemBean itemBean);
 
     /**
-     * 当没有选择item点击确认文本时回调
+     * 当没有选择item点击确认view时回调
      *
      * @param fragment 对话框
      */

@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.bean.BSDialogFgListItemBean;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.bean.BSDialogFgListOption;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickItemListener;
-import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickTextListener;
+import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickHeaderListener;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.bottomSheetDialogFragment.ListBSDialogFragment;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_default:
                 BSDialogFgListOption listOption = new BSDialogFgListOption.Builder()
                         .setList(getList())
-                        .setOnListBSDfgClickTextListener(new OnListBSDfgClickTextListener() {
+                        .setOnListBSDfgClickTextListener(new OnListBSDfgClickHeaderListener() {
                             @Override
                             public void onClickCancel(@NonNull ListBSDialogFragment fragment, BSDialogFgListItemBean itemBean) {
                                 if (itemBean == null) {
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setCancelVisible(false)
                         .setLayoutManager(new GridLayoutManager(this, 2))
                         .setAdapter(new CustomAdapter(getList()))
-                        .setOnListBSDfgClickTextListener(new OnListBSDfgClickTextListener() {
+                        .setOnListBSDfgClickTextListener(new OnListBSDfgClickHeaderListener() {
                             @Override
                             public void onClickCancel(@NonNull ListBSDialogFragment fragment, BSDialogFgListItemBean itemBean) {
                                 if (itemBean == null) {
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setTitleColor(Color.GREEN)
                         .setLayoutManager(new GridLayoutManager(this, 2))
                         .setAdapter(new CustomAdapter(getList()))
-                        .setOnListBSDfgClickTextListener(new OnListBSDfgClickTextListener() {
+                        .setOnListBSDfgClickTextListener(new OnListBSDfgClickHeaderListener() {
                             @Override
                             public void onClickCancel(@NonNull ListBSDialogFragment fragment, BSDialogFgListItemBean itemBean) {
                                 if (itemBean == null) {

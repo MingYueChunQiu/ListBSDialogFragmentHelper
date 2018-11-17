@@ -20,7 +20,7 @@ import com.mingyuechunqiu.listbsdialogfragmenthelper.R;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.bean.BSDialogFgListItemBean;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.bean.BSDialogFgListOption;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickItemListener;
-import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickTextListener;
+import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickHeaderListener;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.adapter.BSDialogFragmentListAdapter;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.view.DefaultHeaderView;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.view.HeaderViewable;
@@ -38,7 +38,7 @@ import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.view.HeaderViewable;
 public class ListBSDialogFragment extends BaseBSDialogFragment implements View.OnClickListener {
 
     private BSDialogFgListOption mOption;
-    private OnListBSDfgClickTextListener mTextListener;
+    private OnListBSDfgClickHeaderListener mTextListener;
     private OnListBSDfgClickItemListener mItemListener;
     private BSDialogFgListItemBean mItemBean;
 
@@ -103,11 +103,11 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
         }
     }
 
-    public OnListBSDfgClickTextListener getOnListBSDialogFragmentListener() {
+    public OnListBSDfgClickHeaderListener getOnListBSDialogFragmentListener() {
         return mTextListener;
     }
 
-    public void setOnListBSDialogFragmentListener(OnListBSDfgClickTextListener textListener) {
+    public void setOnListBSDialogFragmentListener(OnListBSDfgClickHeaderListener textListener) {
         mTextListener = textListener;
     }
 

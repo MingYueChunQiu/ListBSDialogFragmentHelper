@@ -3,7 +3,7 @@ package com.mingyuechunqiu.listbsdialogfragmenthelper.bean;
 import android.support.v7.widget.RecyclerView;
 
 import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickItemListener;
-import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickTextListener;
+import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickHeaderListener;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class BSDialogFgListOption {
     private List<BSDialogFgListItemBean> list;//列表数据
     private RecyclerView.LayoutManager layoutManager;//列表布局管理器
     private RecyclerView.Adapter adapter;//列表适配器
-    private OnListBSDfgClickTextListener textListener;//列表对话框文本监听器
+    private OnListBSDfgClickHeaderListener textListener;//列表对话框文本监听器
     private OnListBSDfgClickItemListener itemListener;//列表对话框item监听器
 
     public String getTitleText() {
@@ -129,11 +129,11 @@ public class BSDialogFgListOption {
         this.adapter = adapter;
     }
 
-    public OnListBSDfgClickTextListener getOnListBSDfgClickTextListener() {
+    public OnListBSDfgClickHeaderListener getOnListBSDfgClickTextListener() {
         return textListener;
     }
 
-    public void setOnListBSDfgClickTextListener(OnListBSDfgClickTextListener textListener) {
+    public void setOnListBSDfgClickTextListener(OnListBSDfgClickHeaderListener textListener) {
         this.textListener = textListener;
     }
 
@@ -268,11 +268,11 @@ public class BSDialogFgListOption {
             return this;
         }
 
-        public OnListBSDfgClickTextListener getOnListBSDfgClickTextListener() {
+        public OnListBSDfgClickHeaderListener getOnListBSDfgClickTextListener() {
             return mOption.textListener;
         }
 
-        public Builder setOnListBSDfgClickTextListener(OnListBSDfgClickTextListener textListener) {
+        public Builder setOnListBSDfgClickTextListener(OnListBSDfgClickHeaderListener textListener) {
             mOption.textListener = textListener;
             return this;
         }
