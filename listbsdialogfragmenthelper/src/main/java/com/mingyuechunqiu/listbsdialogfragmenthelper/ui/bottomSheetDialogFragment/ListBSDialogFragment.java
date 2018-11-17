@@ -1,5 +1,6 @@
 package com.mingyuechunqiu.listbsdialogfragmenthelper.ui.bottomSheetDialogFragment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.R;
@@ -20,13 +22,16 @@ import com.mingyuechunqiu.listbsdialogfragmenthelper.bean.BSDialogFgListOption;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickItemListener;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickTextListener;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.adapter.BSDialogFragmentListAdapter;
+import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.view.DefaultHeaderView;
+import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.view.HeaderViewable;
 
 /**
  * <pre>
  *     author : xyj
  *     e-mail : yujie.xi@ehailuo.com
  *     time   : 2018/11/14
- *     desc   :
+ *     desc   : 底部列表对话框
+ *              继承自BaseBSDialogFragment
  *     version: 1.0
  * </pre>
  */
@@ -37,6 +42,7 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
     private OnListBSDfgClickItemListener mItemListener;
     private BSDialogFgListItemBean mItemBean;
 
+    private HeaderViewable vHeaderViewable;
     private boolean isExtendBaseQuickAdapter;//标记是否是自定义适配器
     private View vSelected;
 
@@ -46,15 +52,16 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
         View view = layoutInflater.inflate(R.layout.bs_dialog_fragment_list, viewGroup, false);
-        AppCompatTextView actvCancel = view.findViewById(R.id.tv_bs_dfg_cancel);
-        AppCompatTextView actvTitle = view.findViewById(R.id.tv_bs_dfg_title);
-        AppCompatTextView actvConfirm = view.findViewById(R.id.tv_bs_dfg_confirm);
+        FrameLayout flHeaderContainer = view.findViewById(R.id.fl_bs_dfg_header_container);
+        flHeaderContainer.addView(vHeaderViewable.getHeaderView());
+
         RecyclerView rvList = view.findViewById(R.id.rv_bs_dfg_list);
 
-        actvCancel.setOnClickListener(this);
-        actvTitle.setOnClickListener(this);
-        actvConfirm.setOnClickListener(this);
-        setOption(actvCancel, actvTitle, actvConfirm, rvList);
+        vHeaderViewable.getCancelView().setOnClickListener(this);
+        vHeaderViewable.getTitleView().setOnClickListener(this);
+        vHeaderViewable.getConfirmView().setOnClickListener(this);
+        setOption(vHeaderViewable.getCancelView(), vHeaderViewable.getTitleView(),
+                vHeaderViewable.getConfirmView(), rvList);
         return view;
     }
 
@@ -64,6 +71,7 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
         mTextListener = null;
         mItemListener = null;
         mItemBean = null;
+        vHeaderViewable = null;
         isExtendBaseQuickAdapter = false;
         vSelected = null;
     }
@@ -72,16 +80,16 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
     public void onClick(View v) {
         //Resource IDs cannot be used in a switch statement in Android library modules
         int id = v.getId();
-        if (id == R.id.tv_bs_dfg_cancel) {
+        if (id == vHeaderViewable.getCancelView().getId()) {
             dismiss();
             if (mTextListener != null) {
                 mTextListener.onClickCancel(this, mItemBean);
             }
-        } else if (id == R.id.tv_bs_dfg_title) {
+        } else if (id == vHeaderViewable.getTitleView().getId()) {
             if (mTextListener != null) {
                 mTextListener.onClickTitle(this, mItemBean);
             }
-        } else if (id == R.id.tv_bs_dfg_confirm) {
+        } else if (id == vHeaderViewable.getConfirmView().getId()) {
             if (mTextListener != null) {
                 //因为自定义adapter可能不是BaseQuickAdapter的子类，无法检测点击事件，
                 //所以未选择确认事件只针对BaseQuickAdapter的子类
@@ -112,55 +120,83 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
     }
 
     /**
-     * 创建列表底部对话框实例
+     * 创建列表底部对话框实例，选用默认头部view
      *
-     * @param option 列表选项
+     * @param context 上下文
+     * @param option  列表选项
      * @return 返回创建的对话框实例
      */
-    public static ListBSDialogFragment newInstance(BSDialogFgListOption option) {
+    public static ListBSDialogFragment newInstance(Context context, BSDialogFgListOption option) {
+        return newInstance(context, option, null);
+    }
+
+    /**
+     * 创建列表底部对话框实例
+     *
+     * @param context        上下文
+     * @param option         列表选项
+     * @param headerViewable 自定义的头部view
+     * @return 返回创建的对话框实例
+     */
+    public static ListBSDialogFragment newInstance(Context context,
+                                                   BSDialogFgListOption option,
+                                                   HeaderViewable headerViewable) {
         ListBSDialogFragment fragment = new ListBSDialogFragment();
         fragment.mOption = option;
+        if (headerViewable == null) {
+            headerViewable = DefaultHeaderView.getInstance(context);
+        }
+        fragment.vHeaderViewable = headerViewable;
         return fragment;
     }
 
     /**
      * 根据列表选项进行参数设置
      *
-     * @param actvCancel  取消按钮
-     * @param actvTitle   标题按钮
-     * @param actvConfirm 确认按钮
-     * @param rvList      列表
+     * @param vCancel  取消按钮
+     * @param vTitle   标题按钮
+     * @param vConfirm 确认按钮
+     * @param rvList   列表
      */
-    private void setOption(AppCompatTextView actvCancel, AppCompatTextView actvTitle, AppCompatTextView actvConfirm, RecyclerView rvList) {
+    private void setOption(View vCancel, View vTitle, View vConfirm, RecyclerView rvList) {
         if (mOption == null) {
             return;
         }
-        if (!TextUtils.isEmpty(mOption.getCancelText())) {
-            actvCancel.setText(mOption.getCancelText());
+        if (vCancel instanceof AppCompatTextView) {
+            AppCompatTextView actvCancel = (AppCompatTextView) vCancel;
+            if (!TextUtils.isEmpty(mOption.getCancelText())) {
+                actvCancel.setText(mOption.getCancelText());
+            }
+            if (mOption.getCancelColor() != 0) {
+                actvCancel.setTextColor(mOption.getCancelColor());
+            }
         }
-        if (!TextUtils.isEmpty(mOption.getTitleText())) {
-            actvTitle.setText(mOption.getTitleText());
+        if (vTitle instanceof AppCompatTextView) {
+            AppCompatTextView actvTitle = (AppCompatTextView) vTitle;
+            if (!TextUtils.isEmpty(mOption.getTitleText())) {
+                actvTitle.setText(mOption.getTitleText());
+            }
+            if (mOption.getTitleColor() != 0) {
+                actvTitle.setTextColor(mOption.getTitleColor());
+            }
         }
-        if (!TextUtils.isEmpty(mOption.getConfirmText())) {
-            actvConfirm.setText(mOption.getConfirmText());
-        }
-        if (mOption.getCancelColor() != 0) {
-            actvCancel.setTextColor(mOption.getCancelColor());
-        }
-        if (mOption.getTitleColor() != 0) {
-            actvTitle.setTextColor(mOption.getTitleColor());
-        }
-        if (mOption.getConfirmColor() != 0) {
-            actvConfirm.setTextColor(mOption.getConfirmColor());
+        if (vConfirm instanceof AppCompatTextView) {
+            AppCompatTextView actvConfirm = (AppCompatTextView) vConfirm;
+            if (!TextUtils.isEmpty(mOption.getConfirmText())) {
+                actvConfirm.setText(mOption.getConfirmText());
+            }
+            if (mOption.getConfirmColor() != 0) {
+                actvConfirm.setTextColor(mOption.getConfirmColor());
+            }
         }
         if (!mOption.isCancelVisible()) {
-            actvCancel.setVisibility(View.GONE);
+            vCancel.setVisibility(View.GONE);
         }
         if (!mOption.isTitleVisible()) {
-            actvTitle.setVisibility(View.GONE);
+            vTitle.setVisibility(View.GONE);
         }
         if (!mOption.isConfirmVisible()) {
-            actvConfirm.setVisibility(View.GONE);
+            vConfirm.setVisibility(View.GONE);
         }
         if (mOption.getOnListBSDfgClickTextListener() != null) {
             mTextListener = mOption.getOnListBSDfgClickTextListener();

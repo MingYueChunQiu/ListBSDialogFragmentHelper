@@ -27,8 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         AppCompatButton acbtnDefault = findViewById(R.id.btn_default);
         AppCompatButton acbtnCustom = findViewById(R.id.btn_custom);
+        AppCompatButton acbtnCustomHeader = findViewById(R.id.btn_custom_header);
         acbtnDefault.setOnClickListener(this);
         acbtnCustom.setOnClickListener(this);
+        acbtnCustomHeader.setOnClickListener(this);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         })
                         .build();
-                ListBSDialogFragment listFragment = ListBSDialogFragment.newInstance(listOption);
+                ListBSDialogFragment listFragment = ListBSDialogFragment.newInstance(this, listOption);
                 listFragment.show(getSupportFragmentManager(), ListBSDialogFragment.class.getSimpleName());
                 break;
             case R.id.btn_custom:
@@ -120,8 +122,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         })
                         .build();
-                ListBSDialogFragment customFragment = ListBSDialogFragment.newInstance(customOption);
+                ListBSDialogFragment customFragment = ListBSDialogFragment.newInstance(this, customOption);
                 customFragment.show(getSupportFragmentManager(), ListBSDialogFragment.class.getSimpleName());
+                break;
+            case R.id.btn_custom_header:
+                BSDialogFgListOption headerOption = new BSDialogFgListOption.Builder()
+                        .setCancelColor(Color.BLUE)
+                        .setConfirmColor(Color.CYAN)
+                        .setTitleColor(Color.GREEN)
+                        .setLayoutManager(new GridLayoutManager(this, 2))
+                        .setAdapter(new CustomAdapter(getList()))
+                        .setOnListBSDfgClickTextListener(new OnListBSDfgClickTextListener() {
+                            @Override
+                            public void onClickCancel(@NonNull ListBSDialogFragment fragment, BSDialogFgListItemBean itemBean) {
+                                if (itemBean == null) {
+                                    Toast.makeText(MainActivity.this, "自定义取消", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "自定义取消" + itemBean.getText(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onClickTitle(@NonNull ListBSDialogFragment fragment, BSDialogFgListItemBean itemBean) {
+                                if (itemBean == null) {
+                                    Toast.makeText(MainActivity.this, "自定义标题", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "自定义标题" + itemBean.getText(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onClickConfirm(@NonNull ListBSDialogFragment fragment, @NonNull BSDialogFgListItemBean itemBean) {
+                                Toast.makeText(MainActivity.this, "自定义确认", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onClickConfirmWithoutSelecting(@NonNull ListBSDialogFragment fragment) {
+                                Toast.makeText(MainActivity.this, "自定义未选择确认", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .build();
+                ListBSDialogFragment headerFragment = ListBSDialogFragment.newInstance(
+                        this, headerOption, new CustomHeaderView(this));
+                headerFragment.show(getSupportFragmentManager(), ListBSDialogFragment.class.getSimpleName());
                 break;
             default:
                 break;

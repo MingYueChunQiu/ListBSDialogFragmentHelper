@@ -4,42 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/fl_bs_dfg_header_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tv_bs_dfg_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:text="@string/cancel"
-            android:textColor="@color/red_FF384B"
-            android:textSize="@dimen/font_14" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tv_bs_dfg_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="@dimen/dp_10"
-            android:text="@string/title"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/font_18" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tv_bs_dfg_confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_10"
-            android:text="@string/confirm"
-            android:textColor="@color/red_FF384B"
-            android:textSize="@dimen/font_14" />
-    </RelativeLayout>
+        android:layout_height="wrap_content" />
 
     <View
         android:layout_width="match_parent"
