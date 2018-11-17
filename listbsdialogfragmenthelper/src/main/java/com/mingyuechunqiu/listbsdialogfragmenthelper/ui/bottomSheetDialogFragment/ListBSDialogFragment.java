@@ -153,6 +153,15 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
         if (mOption.getConfirmColor() != 0) {
             actvConfirm.setTextColor(mOption.getConfirmColor());
         }
+        if (!mOption.isCancelVisible()) {
+            actvCancel.setVisibility(View.GONE);
+        }
+        if (!mOption.isTitleVisible()) {
+            actvTitle.setVisibility(View.GONE);
+        }
+        if (!mOption.isConfirmVisible()) {
+            actvConfirm.setVisibility(View.GONE);
+        }
         if (mOption.getOnListBSDfgClickTextListener() != null) {
             mTextListener = mOption.getOnListBSDfgClickTextListener();
         }

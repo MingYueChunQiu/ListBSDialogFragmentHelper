@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setCancelColor(Color.BLUE)
                         .setConfirmColor(Color.CYAN)
                         .setTitleColor(Color.GREEN)
+                        .setCancelVisible(false)
                         .setLayoutManager(new GridLayoutManager(this, 2))
                         .setAdapter(new CustomAdapter(getList()))
                         .setOnListBSDfgClickTextListener(new OnListBSDfgClickTextListener() {

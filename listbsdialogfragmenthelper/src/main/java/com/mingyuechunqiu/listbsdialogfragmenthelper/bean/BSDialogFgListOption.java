@@ -24,6 +24,9 @@ public class BSDialogFgListOption {
     private int titleColor;//标题文本颜色
     private int cancelColor;//取消文本颜色
     private int confirmColor;//确认文本颜色
+    private boolean isCancelVisible = true;//取消文本是否可见
+    private boolean isTitleVisible = true;//标题是否可见
+    private boolean isConfirmVisible = true;//确认文本是否可见
     private List<BSDialogFgListItemBean> list;//列表数据
     private RecyclerView.LayoutManager layoutManager;//列表布局管理器
     private RecyclerView.Adapter adapter;//列表适配器
@@ -76,6 +79,30 @@ public class BSDialogFgListOption {
 
     public void setConfirmColor(int confirmColor) {
         this.confirmColor = confirmColor;
+    }
+
+    public boolean isCancelVisible() {
+        return isCancelVisible;
+    }
+
+    public void setCancelVisible(boolean cancelVisible) {
+        isCancelVisible = cancelVisible;
+    }
+
+    public boolean isTitleVisible() {
+        return isTitleVisible;
+    }
+
+    public void setTitleVisible(boolean titleVisible) {
+        isTitleVisible = titleVisible;
+    }
+
+    public boolean isConfirmVisible() {
+        return isConfirmVisible;
+    }
+
+    public void setConfirmVisible(boolean confirmVisible) {
+        isConfirmVisible = confirmVisible;
     }
 
     public List<BSDialogFgListItemBean> getList() {
@@ -184,6 +211,33 @@ public class BSDialogFgListOption {
 
         public Builder setConfirmColor(int confirmColor) {
             mOption.confirmColor = confirmColor;
+            return this;
+        }
+
+        public boolean isCancelVisible() {
+            return mOption.isCancelVisible;
+        }
+
+        public Builder setCancelVisible(boolean cancelVisible) {
+            mOption.isCancelVisible = cancelVisible;
+            return this;
+        }
+
+        public boolean isTitleVisible() {
+            return mOption.isTitleVisible;
+        }
+
+        public Builder setTitleVisible(boolean titleVisible) {
+            mOption.isTitleVisible = titleVisible;
+            return this;
+        }
+
+        public boolean isConfirmVisible() {
+            return mOption.isConfirmVisible;
+        }
+
+        public Builder setConfirmVisible(boolean confrimVisible) {
+            mOption.isConfirmVisible = confrimVisible;
             return this;
         }
 
