@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_custom_header:
                 BSDialogFgListOption headerOption = new BSDialogFgListOption.Builder()
+                        .setConfirmText("自定义确认")
                         .setCancelColor(Color.BLUE)
                         .setConfirmColor(Color.CYAN)
                         .setTitleColor(Color.GREEN)
