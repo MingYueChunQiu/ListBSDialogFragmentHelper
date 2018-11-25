@@ -158,7 +158,7 @@ public class ListBSDialogFragment extends BottomSheetDialogFragment implements V
      */
     private void setOption(View vCancel, View vTitle, View vConfirm, RecyclerView rvList) {
         if (mOption == null) {
-            return;
+            mOption = new BSDialogFgListOption.Builder().build();
         }
         if (vCancel instanceof AppCompatTextView) {
             AppCompatTextView actvCancel = (AppCompatTextView) vCancel;
