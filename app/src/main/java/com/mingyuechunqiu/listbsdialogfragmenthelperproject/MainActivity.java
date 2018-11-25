@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         })
                         .build();
-                ListBSDialogFragment listFragment = ListBSDialogFragment.newInstance(this, listOption);
+                ListBSDialogFragment listFragment = ListBSDialogFragment.newInstance(listOption);
                 listFragment.show(getSupportFragmentManager(), ListBSDialogFragment.class.getSimpleName());
                 break;
             case R.id.btn_custom:
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         })
                         .build();
-                ListBSDialogFragment customFragment = ListBSDialogFragment.newInstance(this, customOption);
+                ListBSDialogFragment customFragment = ListBSDialogFragment.newInstance(customOption);
                 customFragment.show(getSupportFragmentManager(), ListBSDialogFragment.class.getSimpleName());
                 break;
             case R.id.btn_custom_header:
@@ -162,9 +162,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Toast.makeText(MainActivity.this, "自定义未选择确认", Toast.LENGTH_SHORT).show();
                             }
                         })
+                        .setHeaderViewable(new CustomHeaderView(this))
                         .build();
-                ListBSDialogFragment headerFragment = ListBSDialogFragment.newInstance(
-                        this, headerOption, new CustomHeaderView(this));
+                ListBSDialogFragment headerFragment = ListBSDialogFragment.newInstance(headerOption);
                 headerFragment.show(getSupportFragmentManager(), ListBSDialogFragment.class.getSimpleName());
                 break;
             default:

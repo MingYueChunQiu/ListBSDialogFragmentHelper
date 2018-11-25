@@ -1,10 +1,11 @@
 package com.mingyuechunqiu.listbsdialogfragmenthelper.ui.bottomSheetDialogFragment;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,7 +36,7 @@ import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.view.HeaderViewable;
  *     version: 1.0
  * </pre>
  */
-public class ListBSDialogFragment extends BaseBSDialogFragment implements View.OnClickListener {
+public class ListBSDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
     private BSDialogFgListOption mOption;
     private OnListBSDfgClickHeaderListener mTextListener;
@@ -46,13 +47,19 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
     private boolean isExtendBaseQuickAdapter;//标记是否是自定义适配器
     private View vSelected;
 
+    @Nullable
     @Override
-    protected View initView(@NonNull LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (getDialog().getWindow() != null) {
             getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
-        View view = layoutInflater.inflate(R.layout.bs_dialog_fragment_list, viewGroup, false);
+        View view = inflater.inflate(R.layout.bs_dialog_fragment_list, container, false);
         FrameLayout flHeaderContainer = view.findViewById(R.id.fl_bs_dfg_header_container);
+        if (mOption != null && mOption.getHeaderViewable() != null) {
+            vHeaderViewable = mOption.getHeaderViewable();
+        } else {
+            vHeaderViewable = DefaultHeaderView.getInstance(getContext());
+        }
         flHeaderContainer.addView(vHeaderViewable.getHeaderView());
 
         RecyclerView rvList = view.findViewById(R.id.rv_bs_dfg_list);
@@ -66,7 +73,8 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
     }
 
     @Override
-    protected void release() {
+    public void onDestroyView() {
+        super.onDestroyView();
         mOption = null;
         mTextListener = null;
         mItemListener = null;
@@ -122,31 +130,21 @@ public class ListBSDialogFragment extends BaseBSDialogFragment implements View.O
     /**
      * 创建列表底部对话框实例，选用默认头部view
      *
-     * @param context 上下文
-     * @param option  列表选项
      * @return 返回创建的对话框实例
      */
-    public static ListBSDialogFragment newInstance(Context context, BSDialogFgListOption option) {
-        return newInstance(context, option, null);
+    public static ListBSDialogFragment newInstance() {
+        return newInstance(null);
     }
 
     /**
      * 创建列表底部对话框实例
      *
-     * @param context        上下文
-     * @param option         列表选项
-     * @param headerViewable 自定义的头部view
+     * @param option 列表选项
      * @return 返回创建的对话框实例
      */
-    public static ListBSDialogFragment newInstance(Context context,
-                                                   BSDialogFgListOption option,
-                                                   HeaderViewable headerViewable) {
+    public static ListBSDialogFragment newInstance(BSDialogFgListOption option) {
         ListBSDialogFragment fragment = new ListBSDialogFragment();
         fragment.mOption = option;
-        if (headerViewable == null) {
-            headerViewable = DefaultHeaderView.getInstance(context);
-        }
-        fragment.vHeaderViewable = headerViewable;
         return fragment;
     }
 

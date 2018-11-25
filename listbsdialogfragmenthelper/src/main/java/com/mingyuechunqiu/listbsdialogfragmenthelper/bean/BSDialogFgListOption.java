@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickItemListener;
 import com.mingyuechunqiu.listbsdialogfragmenthelper.framework.OnListBSDfgClickHeaderListener;
+import com.mingyuechunqiu.listbsdialogfragmenthelper.ui.view.HeaderViewable;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class BSDialogFgListOption {
     private RecyclerView.Adapter adapter;//列表适配器
     private OnListBSDfgClickHeaderListener textListener;//列表对话框文本监听器
     private OnListBSDfgClickItemListener itemListener;//列表对话框item监听器
+    private HeaderViewable headerViewable;//头部自定义view
 
     public String getTitleText() {
         return titleText;
@@ -143,6 +145,14 @@ public class BSDialogFgListOption {
 
     public void setOnListBSDfgClickItemListener(OnListBSDfgClickItemListener itemListener) {
         this.itemListener = itemListener;
+    }
+
+    public HeaderViewable getHeaderViewable() {
+        return headerViewable;
+    }
+
+    public void setHeaderViewable(HeaderViewable headerViewable) {
+        this.headerViewable = headerViewable;
     }
 
     /**
@@ -283,6 +293,15 @@ public class BSDialogFgListOption {
 
         public Builder setOnListBSDfgClickItemListener(OnListBSDfgClickItemListener itemListener) {
             mOption.itemListener = itemListener;
+            return this;
+        }
+
+        public HeaderViewable getHeaderViewable() {
+            return mOption.headerViewable;
+        }
+
+        public Builder setHeaderViewable(HeaderViewable headerViewable) {
+            mOption.headerViewable = headerViewable;
             return this;
         }
     }
