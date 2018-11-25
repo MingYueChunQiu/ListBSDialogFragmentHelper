@@ -33,7 +33,7 @@ dependencies {
 	//必须，库默认使用BRVAH的适配器，可以选择传入自定义的adapter
    	implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
    	
-	implementation 'com.github.MingYueChunQiu:ListBSDialogFragmentHelper:0.1.1'
+	implementation 'com.github.MingYueChunQiu:ListBSDialogFragmentHelper:0.1.2'
 	}
 ```
 ## 三.功能使用
